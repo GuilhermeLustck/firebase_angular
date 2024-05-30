@@ -27,7 +27,7 @@ export class FireDataService {
     }
   
   }
-  private fire='https://algo-72622-default-rtdb.firebaseio.com/'
+  private fire='https://algo-72622-default-rtdb.firebaseio.com/cadastros.json'
 
   cadasrto(senha:string,Tel:string,Email:string,Nome:string){
     const dados = {
