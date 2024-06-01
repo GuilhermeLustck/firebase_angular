@@ -13,7 +13,7 @@ import { Observable,firstValueFrom } from 'rxjs';
 })
 export class FireDataService {
 
-  private fire = 'https://algo-72622-default-rtdb.firebaseio.com/cadastros';
+  private fire = 'https://algo-72622-default-rtdb.firebaseio.com/cadastros/';
 
   constructor(private auth: AngularFireAuth, private rot: Router, private http: HttpClient) { }
   id:any
@@ -30,12 +30,12 @@ export class FireDataService {
     }
   }
   
-  getUser(){
+  async getUser(){
     try{
-      const resul= this.http.get(`${this.fire}/${this.id}.json`)
+      const resul= await this.http.get(`${this.fire}/${this.id}.json`)
     }catch(erro){
 
-      this.rot.navigate(["home"]);
+      
       
     }
   }
