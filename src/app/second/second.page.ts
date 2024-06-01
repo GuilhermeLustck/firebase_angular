@@ -10,8 +10,10 @@ export class SecondPage implements OnInit {
   dados:any
   constructor(private userServ:FireDataService) { }
 
-  ngOnInit() {
-    this.dados=this.userServ.getUser();
+  async ngOnInit() {
+
+    this.dados= await this.userServ.getUser();
+
   }
 
 }

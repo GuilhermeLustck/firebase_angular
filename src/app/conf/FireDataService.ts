@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { Observable,firstValueFrom } from 'rxjs';
+
+
 
 
 
@@ -12,10 +13,16 @@ import { Observable,firstValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class FireDataService {
+  
 
-  private fire = 'https://algo-72622-default-rtdb.firebaseio.com/cadastros';
+  private fire = 'https://algo-72622-default-rtdb.firebaseio.com/cadastros/';
 
-  constructor(private auth: AngularFireAuth, private rot: Router, private http: HttpClient) { }
+  constructor(
+     private auth: AngularFireAuth,
+     private rot: Router,
+     private http: HttpClient
+    ) { }
+
   id:any
 
   async login(email: string, password: string) {
@@ -30,15 +37,19 @@ export class FireDataService {
     }
   }
   
-  getUser(){
-    try{
-      const resul= this.http.get(`${this.fire}/${this.id}.json`)
-    }catch(erro){
-
-      this.rot.navigate(["home"]);
-      
+  async getUser() {
+    try {
+      const resul = await this.http.get(`${this.fire}/${this.id}.json`).toPromise(); // Convertendo o Observable em uma Promise
+      // Manipular os dados retornados (por exemplo, atribuir a uma variável ou realizar alguma ação com eles)
+      console.log('Dados do usuário:', resul);
+      return resul; // Se desejar retornar os dados para uso posterior
+    } catch (error) {
+      console.error('Erro ao obter dados do usuário:', error);
+      // Tratar o erro, se necessário
+      throw error; // Re-lança o erro para que possa ser tratado pelo chamador, se necessário
     }
   }
+
 
   async cadasrto(senha: string, Tel: string, Email: string, Nome: string) {
     try {
@@ -52,17 +63,15 @@ export class FireDataService {
       if (!Uid) {
         throw new Error("user no authenticaion");
       }
-
+      const dados={
+        Nome:Nome,
+        Tel:Tel
+      }
       // Monta os dados do usuário
-      const dados = {
-        Nome: Nome,
-        Tel: Tel
-      };
 
-      const response= await firstValueFrom(this.http.post(`${this.fire}/${Uid}.json`, dados))
+      await this.http.post(`https://algo-72622-default-rtdb.firebaseio.com/cadastros/${Uid}.json`,dados)
 
-      return response
-        
+      console.log("cadastrado com sucesso sem errrooooooooo0phhfgbhbgb carolho")
       
     }catch(error: any){
       console.log("erro no cadastramento",error)
