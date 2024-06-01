@@ -13,9 +13,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class FireDataService {
-  
 
-  private fire = 'https://algo-72622-default-rtdb.firebaseio.com/cadastros/';
+  private fire = 'https://algo-72622-default-rtdb.firebaseio.com/cadastros';
 
   constructor(
      private auth: AngularFireAuth,
@@ -37,16 +36,13 @@ export class FireDataService {
     }
   }
   
-  async getUser() {
-    try {
-      const resul = await this.http.get(`${this.fire}/${this.id}.json`).toPromise(); // Convertendo o Observable em uma Promise
-      // Manipular os dados retornados (por exemplo, atribuir a uma variável ou realizar alguma ação com eles)
-      console.log('Dados do usuário:', resul);
-      return resul; // Se desejar retornar os dados para uso posterior
-    } catch (error) {
-      console.error('Erro ao obter dados do usuário:', error);
-      // Tratar o erro, se necessário
-      throw error; // Re-lança o erro para que possa ser tratado pelo chamador, se necessário
+  getUser(){
+    try{
+      const resul= this.http.get(`${this.fire}/${this.id}.json`)
+    }catch(erro){
+
+      this.rot.navigate(["home"]);
+      
     }
   }
 
