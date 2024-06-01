@@ -16,11 +16,12 @@ export class FireDataService {
   private fire = 'https://algo-72622-default-rtdb.firebaseio.com/cadastros';
 
   constructor(private auth: AngularFireAuth, private rot: Router, private http: HttpClient) { }
-
+  id:string=""
 
   async login(email: string, password: string) {
     try {
       await this.auth.signInWithEmailAndPassword(email, password);
+      
       this.rot.navigate(['second']);
 
 
@@ -46,7 +47,7 @@ export class FireDataService {
 
       const user = await this.auth.currentUser;
       const Uid = user?.uid;
-
+      
       if(!Uid){
 
       throw new Error("user no authentication");
