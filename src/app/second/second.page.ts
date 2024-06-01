@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FireDataService } from '../conf/FireDataService';
 
 @Component({
   selector: 'app-second',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./second.page.scss'],
 })
 export class SecondPage implements OnInit {
-
-  constructor() { }
+  dados:any
+  constructor(private userServ:FireDataService) { }
 
   ngOnInit() {
+    this.dados=this.userServ.getUser();
   }
 
 }
