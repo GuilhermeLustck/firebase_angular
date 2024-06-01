@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FireDataService } from './fire-data.service';
+import { FireDataService } from './FireDataService';
 
 describe('FireDataService', () => {
   let service: FireDataService;

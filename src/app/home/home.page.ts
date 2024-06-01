@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FireDataService } from '../conf/fire-data.service';
+import { FireDataService } from '../conf/FireDataService';
 
 
 @Component({
@@ -11,7 +11,7 @@ export class HomePage {
 
   email: string ='';
   password: string ='';
-  res:string='false'
+  res:string='cadastre-se'
 
   senha:string='';
   Tel: string='';
@@ -26,16 +26,15 @@ export class HomePage {
     this.authS.login( this.email , this.password )
 
   }
- cadas(){
+  async cadas(){
+    try{
+      const resul= this.authS.cadasrto(this.senha,this.Tel,this.Email,this.Nome);
+      console.log("cadastro feito com sucesso",resul);
+      this.res="cadastro feito com sucesso","  ",resul;
 
-  this.authS.cadasrto(this.senha,this.Tel,this.Email,this.Nome).subscribe(response => {
-    console.log('Cadastro realizado com sucesso', response);
-  }, error => {
-    console.error('Erro ao realizar cadastro', error);
-  });
-
- }
-
-
-
+    }catch(error: any){
+      console.error("erro ao cadastrar",error);
+      this.res="erro ao cadastrar","  ",error;
+    }
+  }
 }
